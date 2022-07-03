@@ -64,7 +64,7 @@ export default {
       // add a new field to store prev (for tooltip only)
       var post = 0
       arr.map(function (a, i) {
-        if (i != arr.length - 1) {
+        if (i !== arr.length - 1) {
           post = arr[i + 1].ASK
         } else {
           post = arr[49].ASK

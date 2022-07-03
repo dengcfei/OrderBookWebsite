@@ -1,5 +1,4 @@
 <template>
-	<!-- table-->
   <div>
     <b-table
       striped
