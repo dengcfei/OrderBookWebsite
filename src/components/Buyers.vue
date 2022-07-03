@@ -1,11 +1,11 @@
 <template>
 	<!-- table-->
   <div>
-    <b-table 
-      striped 
-      hover 
-      
-      small  
+    <b-table
+      striped
+      hover
+
+      small
       :per-page="perPage"
       :total-rows="getLen"
       :current-page="getCurrentPage"
@@ -13,22 +13,22 @@
       :fields="fields"
       class="text-right"
       >
-    <template slot="ASK" slot-scope="data">
+    <template v-slot:ASK="data" >
       <a class="text-danger">
         {{data.value.toFixed(4)}}
       </a>
     </template>
-        <template slot="SUM" slot-scope="data">
+        <template v-slot:SUM="data" >
       <a>
         {{data.value.toFixed(4)}}
       </a>
     </template>
-    <template slot="TOTAL" slot-scope="data">
+    <template v-slot:TOTAL="data" >
       <a>
         {{data.value.toFixed(4)}}
       </a>
     </template>
-    <template slot="SIZE" slot-scope="data">
+    <template v-slot:SIZE="data" >
       <a>
         {{data.value.toFixed(3)}}
       </a>
@@ -39,10 +39,10 @@
     <b-col class="text-right">{{totalSize}} BTC</b-col>
   </b-row>
     <b-pagination
-      align="center" 
-      size="sm" 
-      :total-rows="getLen" 
-      v-model="currentPage" 
+      align="center"
+      size="sm"
+      :total-rows="getLen"
+      v-model="currentPage"
       :per-page="perPage">>
     </b-pagination>
   </div>
@@ -54,42 +54,42 @@ import list from '@/assets/ask.json'
 export default {
   name: 'buys',
   data () {
-     return {
-         fields: [{
-             key: 'ASK',
-             label: 'ASK(USD)',  
-         },
-         {
-             key: 'SIZE',
-             label: 'SIZE(BTC)'
-         }, 
-         'TOTAL','SUM'],
-        orders: list,
-     } 
+    return {
+      fields: [{
+        key: 'ASK',
+        label: 'ASK(USD)'
+      },
+      {
+        key: 'SIZE',
+        label: 'SIZE(BTC)'
+      },
+      'TOTAL', 'SUM'],
+      orders: list
+    }
   },
   props: {
-      perPage: Number,
-      currentPage: Number,
-    },
+    perPage: Number,
+    currentPage: Number
+  },
   computed: {
-      getAll () {
-        return this.orders;
-      },
-      getLen () {
-          return this.orders.length
-      },
-      getPerPage () {
-        return this.perPage
-      },
-      getCurrentPage () {
-        return this.currentPage
-      },
-      totalSize () {
-        return this.orders.reduce(function(a, c){return a + c.SIZE || 0},0).toFixed(3)
-      },
-      totalASK () {
-        return this.orders.reduce(function(a, c){return a + c.ASK || 0},0).toFixed(3)
-      }
+    getAll () {
+      return this.orders
+    },
+    getLen () {
+      return this.orders.length
+    },
+    getPerPage () {
+      return this.perPage
+    },
+    getCurrentPage () {
+      return this.currentPage
+    },
+    totalSize () {
+      return this.orders.reduce(function (a, c) { return a + c.SIZE || 0 }, 0).toFixed(3)
+    },
+    totalASK () {
+      return this.orders.reduce(function (a, c) { return a + c.ASK || 0 }, 0).toFixed(3)
+    }
   }
 }
 </script>

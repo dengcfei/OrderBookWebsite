@@ -51,7 +51,7 @@ export default {
 
   data () {
     return {
-      perPage: 10,
+      perPage: 10
     }
   },
   computed: {
@@ -63,7 +63,7 @@ export default {
     }
   },
   methods: {
-    changePages(num) {
+    changePages (num) {
       this.perPage = num
     }
   }

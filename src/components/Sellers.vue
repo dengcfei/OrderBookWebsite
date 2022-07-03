@@ -1,11 +1,11 @@
 <template>
-	<!-- table-->
+  <!-- table-->
   <div id="app">
-    <b-table 
-      striped 
-      hover 
-      
-      small  
+    <b-table
+      striped
+      hover
+
+      small
       :per-page="getPerPage"
       :total-rows="getLen"
       :current-page="getCurrentPage"
@@ -14,22 +14,22 @@
       class="text-right"
       >
     <!-- fix display styles, like color and precision -->
-    <template slot="BID" slot-scope="data">
+    <template v-slot:BID="data" >
       <a class="text-success">
         {{data.value.toFixed(4)}}
       </a>
     </template>
-    <template slot="SUM" slot-scope="data">
+    <template v-slot:SUM="data" >
       <a>
         {{data.value.toFixed(4)}}
       </a>
     </template>
-    <template slot="TOTAL" slot-scope="data">
+    <template v-slot:TOTAL="data" >
       <a>
         {{data.value.toFixed(4)}}
       </a>
     </template>
-    <template slot="SIZE" slot-scope="data">
+    <template v-slot:SIZE="data" >
       <a>
         {{data.value.toFixed(3)}}
       </a>
@@ -49,45 +49,45 @@ import list from '@/assets/bid.json'
 export default {
   name: 'Sells',
   data () {
-     return {
-         fields: [
-           'SUM',
-           'TOTAL',
-           {
-             key: 'SIZE',
-             label: 'SIZE(BTC)'
-           },
-          {
-             key: 'BID',
-             label: 'BID(USD)',  
-         }],
-        orders: list,
-     } 
+    return {
+      fields: [
+        'SUM',
+        'TOTAL',
+        {
+          key: 'SIZE',
+          label: 'SIZE(BTC)'
+        },
+        {
+          key: 'BID',
+          label: 'BID(USD)'
+        }],
+      orders: list
+    }
   },
-    props: {
-      perPage: Number,
-      currentPage: Number,
-    },
+  props: {
+    perPage: Number,
+    currentPage: Number
+  },
   computed: {
-      getAll () {
-        return this.orders;
-      },
-      getLen () {
-          return this.orders.length
-      },
-      getPerPage () {
-        return this.perPage
-      },
+    getAll () {
+      return this.orders
+    },
+    getLen () {
+      return this.orders.length
+    },
+    getPerPage () {
+      return this.perPage
+    },
 
-      getCurrentPage() {
-        return this.currentPage
-      },
-      totalSIZE () {
-        return this.orders.reduce(function(a, c){return a + c.SIZE || 0},0).toFixed(3)
-      },
-      totalBID () {
-        return this.orders.reduce(function(a, c){return a + c.BID || 0},0).toFixed(3)
-      }
+    getCurrentPage () {
+      return this.currentPage
+    },
+    totalSIZE () {
+      return this.orders.reduce(function (a, c) { return a + c.SIZE || 0 }, 0).toFixed(3)
+    },
+    totalBID () {
+      return this.orders.reduce(function (a, c) { return a + c.BID || 0 }, 0).toFixed(3)
+    }
   }
 }
 
