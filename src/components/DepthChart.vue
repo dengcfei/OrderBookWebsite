@@ -5,21 +5,23 @@
 
 <script>
 import * as d3 from 'd3'
-import bid from '@/assets/bid.json'
-import ask from '@/assets/ask.json'
-
+// import bid from '@/assets/bid.json'
+// import ask from '@/assets/ask.json'
+// const store = app.config.globalProperties.$store
+// let bid = store.state.book_depth.bids
+// let ask = store.state.book_depth.asks
 export default {
   name: 'chart',
   data () {
     return {
       // BIDdata and ASKdata only have length 50
-      BIDdata: this.parseBID(bid),
-      ASKdata: this.parseASK(ask),
+      BIDdata: this.parseBID(),
+      ASKdata: this.parseASK(),
       clientWidth: 900,
       clientHeight: 400
     }
   },
-  mounted () {
+  updated () {
     this.createChart(this.clientWidth, this.clientHeight)
   },
   computed: {
@@ -31,10 +33,14 @@ export default {
     },
     getyend () {
       return d3.max([d3.max(this.BIDdata, d => d.cumSIZE), d3.max(this.ASKdata, d => d.cumSIZE)])
+    },
+    bookdepth () {
+      return this.$store.getters.getBookDepthBySlug(this.slug)
     }
   },
   methods: {
-    parseBID (jdata) {
+    parseBID () {
+      const jdata = this.bookdepth.bids
       var arr = Object.keys(jdata).map(function (k) { return jdata[k] })
       arr = arr.sort((a, b) => (a.BID > b.BID ? -1 : 1)) // descend
       // add a new field in json array to store the cumulative size
@@ -52,7 +58,8 @@ export default {
       // plot only the top 50 entries desc
       return arr.slice(0, 50)
     },
-    parseASK (jdata) {
+    parseASK () {
+      const jdata = this.bookdepth.asks
       var arr = Object.keys(jdata).map(function (k) { return jdata[k] })
       arr = arr.sort((a, b) => (a.ASK > b.ASK ? 1 : -1)) // ascend
       // add a new field in json array to store the cumulative size

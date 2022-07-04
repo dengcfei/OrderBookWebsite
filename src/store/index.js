@@ -13,6 +13,7 @@ export default createStore({
       'btcusdt'
     ],
     book_tickers: {},
+    book_depth: {},
     infos: {},
     metas: {
       BTC: {
@@ -39,6 +40,11 @@ export default createStore({
     getInfoBySlug: (state) => (slug) => {
       const pair = slugs[slug].toLowerCase() + '' + state.baseUnits
       return state.infos[pair] || {}
+    },
+    getBookDepthBySlug: (state) => (slug) => {
+      // const pair = slugs[slug].toLowerCase() + '' + state.baseUnits
+      const pair = 'btcusdt'
+      return state.book_depth[pair] || {}
     }
   },
   mutations: {
@@ -48,11 +54,14 @@ export default createStore({
         ...payload
       }
     },
-    UPDATE_TICKER: (state, payload) => {
-      state.tickers[payload.pair] = {
-        ...state.tickers[payload.pair],
+    UPDATE_BOOK_TICKER: (state, payload) => {
+      state.book_tickers[payload.pair] = {
+        ...state.book_tickers[payload.pair],
         ...payload
       }
+    },
+    UPDATE_BOOK_DEPTH: (state, payload) => {
+      state.book_depth[payload.pair] = payload.depth
     }
   },
   actions: {
