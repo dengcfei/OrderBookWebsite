@@ -61,7 +61,7 @@ export default createStore({
       }
     },
     UPDATE_BOOK_DEPTH: (state, payload) => {
-      state.book_depth[payload.pair] = payload.depth
+      state.book_depth = payload.depth
     }
   },
   actions: {

@@ -21,6 +21,12 @@ export default {
       clientHeight: 400
     }
   },
+  props: {
+    slug: {
+      type: String,
+      default: null
+    }
+  },
   updated () {
     this.createChart(this.clientWidth, this.clientHeight)
   },
